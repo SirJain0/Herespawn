@@ -1,4 +1,4 @@
-package com.example;
+package net.herespawn;
 
 import net.fabricmc.api.ClientModInitializer;
 
