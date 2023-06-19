@@ -31,6 +31,6 @@
 		"fabric-api": "*"
 	},
 	"suggests": {
-		"another-mod": "*"
+		"another-mod": "https://www.curseforge.com/minecraft/mc-mods/convenient-hitboxes"
 	}
 }
