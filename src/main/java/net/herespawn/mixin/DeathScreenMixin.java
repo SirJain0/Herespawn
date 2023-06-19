@@ -26,7 +26,7 @@ public class DeathScreenMixin extends Screen {
 		this.buttons = buttons;
 	}
 
-	@Inject(at = @At("HEAD"), method = "init()V")
+	@Inject(at = @At("TAIL"), method = "init()V")
 	protected void init(CallbackInfo info) {
 		if (this.client == null) return;
 		final ClientPlayerEntity player = this.client.player;
@@ -52,5 +52,6 @@ public class DeathScreenMixin extends Screen {
 		// Adds button to death screen
 		if (world.isClient) this.addDrawableChild(herespawnButton);
 		buttons.add(herespawnButton);
+		buttons.get(buttons.size() - 1).active = false;
 	}
 }
