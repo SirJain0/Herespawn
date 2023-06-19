@@ -3,7 +3,7 @@
 	"id": "herespawn",
 	"version": "${version}",
 	"name": "Herespawn",
-	"description": "Adds a button in the death screen to respawn player to death location.",
+	"description": "Adds a button to the death screen which respawns player to death location.",
 	"authors": [
 		"SirJain"
 	],
