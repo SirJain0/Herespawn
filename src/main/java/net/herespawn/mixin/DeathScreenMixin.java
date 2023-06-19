@@ -32,7 +32,6 @@ public class DeathScreenMixin extends Screen {
 		World world = player.getWorld();
 
 		Herespawn.REQUESTS_RESPAWN_AT_DEATH = false;
-		if (this.client == null) return;
 
 		ButtonWidget herespawnButton = ButtonWidget.builder(
 			Text.translatable("gui.herespawn.respawn_at_death_location"),
@@ -47,7 +46,6 @@ public class DeathScreenMixin extends Screen {
 		.dimensions(this.width / 2 - 100, this.height / 4 + 120, 200, 20)
 		.build();
 
-		// Adds button to death screen
 		if (world.isClient) this.addDrawableChild(herespawnButton);
 		buttons.add(herespawnButton);
 		herespawnButton.active = false;
