@@ -14,7 +14,7 @@
 		"issues": "https://github.com/SirJain0/Herespawn/issues"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/herespawn/icon.png",
+	"icon": "assets/herespawn/herespawn_icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
