@@ -1,6 +1,5 @@
 package net.herespawn.mixin;
 
-import ca.weblite.objc.Client;
 import net.herespawn.Herespawn;
 import net.minecraft.client.gui.screen.DeathScreen;
 import net.minecraft.client.gui.screen.Screen;
@@ -14,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Iterator;
 import java.util.List;
 
 @Mixin(DeathScreen.class)
