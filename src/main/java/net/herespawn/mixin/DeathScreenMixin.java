@@ -1,10 +1,15 @@
 package net.herespawn.mixin;
 
-import net.herespawn.RespawnHelper;
+import ca.weblite.objc.Client;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.minecraft.client.gui.screen.DeathScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.NbtByte;
+import net.minecraft.nbt.NbtInt;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,7 +34,7 @@ public class DeathScreenMixin extends Screen {
 				ClientPlayerEntity player = this.client.player;
 				if (player == null) return;
 				Vec3d deathPos = player.getPos(); // to do: access this field
-				RespawnHelper.setSpawn(deathPos);
+
 				player.requestRespawn();
 			}
 		)
