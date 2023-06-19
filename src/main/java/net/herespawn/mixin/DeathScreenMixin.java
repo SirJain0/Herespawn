@@ -52,6 +52,6 @@ public class DeathScreenMixin extends Screen {
 		// Adds button to death screen
 		if (world.isClient) this.addDrawableChild(herespawnButton);
 		buttons.add(herespawnButton);
-		buttons.get(buttons.size() - 1).active = false;
+		herespawnButton.active = false;
 	}
 }
