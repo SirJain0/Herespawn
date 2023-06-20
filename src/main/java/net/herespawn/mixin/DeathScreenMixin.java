@@ -1,10 +1,12 @@
 package net.herespawn.mixin;
 
 import net.herespawn.Herespawn;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.DeathScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.network.ClientConnection;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -46,7 +48,9 @@ public class DeathScreenMixin extends Screen {
 		.dimensions(this.width / 2 - 100, this.height / 4 + 120, 200, 20)
 		.build();
 
-		if (world.isClient) this.addDrawableChild(herespawnButton);
+		ClientConnection connection = MinecraftClient.getInstance().getNetworkHandler().getConnection();
+		if (connection != null && connection.isLocal()) this.addDrawableChild(herespawnButton);
+
 		buttons.add(herespawnButton);
 		herespawnButton.active = false;
 	}
