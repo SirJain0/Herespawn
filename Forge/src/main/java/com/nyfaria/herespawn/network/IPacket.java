@@ -15,7 +15,7 @@ public interface IPacket {
     static <T extends IPacket> void register(SimpleChannel.MessageBuilder<T> builder, Function<FriendlyByteBuf, T> readFunc) {
         builder.encoder(IPacket::write)
                 .decoder(readFunc)
-                .consumerNetworkThread((p, sup) -> {
+                .consumer((p, sup) -> {
                     p.handle(sup.get());
                     return true;
                 })

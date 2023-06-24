@@ -11,6 +11,6 @@ public class CommonForgeEvents {
 
     @SubscribeEvent
     public static void onRespawn(PlayerEvent.PlayerRespawnEvent event){
-        CommonClass.doRespawn(event.getEntity());
+        CommonClass.doRespawn(event.getPlayer());
     }
 }

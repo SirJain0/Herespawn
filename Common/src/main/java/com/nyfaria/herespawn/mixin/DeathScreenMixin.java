@@ -6,6 +6,7 @@ import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -31,7 +32,7 @@ public abstract class DeathScreenMixin extends Screen {
         final LocalPlayer player = this.minecraft.player;
         if (player == null) return;
         Button herespawnButton = new Button(this.width / 2 - 100, this.height / 4 + 120,200, 20,
-                        Component.translatable("gui.herespawn.respawn_at_death_location"),
+                        new TranslatableComponent("gui.herespawn.respawn_at_death_location"),
                         (button) -> {
                             Services.PLATFORM.sendPacket(player);
                             player.respawn();
