@@ -6,7 +6,7 @@ Herespawn is a simple mod that adds an extra button to the death screen, which a
 
 ## More Details
 
-Please note that this mod, like my others, requires the Fabric API, and doesn't have a respective Forge port. Also, please remember that this mod is pretty much purely client side.
+Please note that this mod, like my others, requires the Fabric API, and doesn't have a respective Forge port.
 
 If you have any questions, concerns, or feedback, please feel free to join my Discord server:
 https://discord.gg/wM4CKTbFVN
