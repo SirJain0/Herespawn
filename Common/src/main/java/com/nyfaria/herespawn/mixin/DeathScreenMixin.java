@@ -30,13 +30,13 @@ public abstract class DeathScreenMixin extends Screen {
         if (this.minecraft == null) return;
         final LocalPlayer player = this.minecraft.player;
         if (player == null) return;
-        Button herespawnButton = new Button(this.width / 2 - 100, this.height / 4 + 120,200, 20,
+        Button herespawnButton = Button.builder(
                         Component.translatable("gui.herespawn.respawn_at_death_location"),
                         (button) -> {
                             Services.PLATFORM.sendPacket(player);
                             player.respawn();
                         }
-                );
+                ).bounds(this.width / 2 - 100, this.height / 4 + 120,200, 20).build();
         this.addRenderableWidget(herespawnButton);
         exitButtons.add(herespawnButton);
     }
