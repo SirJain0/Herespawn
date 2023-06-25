@@ -26,7 +26,7 @@ public abstract class DeathScreenMixin extends Screen {
         super($$0);
     }
 
-    @Inject(at = @At("TAIL"), method = "init()V")
+    @Inject(at = @At("TAIL"), method = "init")
     protected void init(CallbackInfo info) {
         if (this.minecraft == null) return;
         final LocalPlayer player = this.minecraft.player;
