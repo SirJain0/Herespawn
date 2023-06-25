@@ -1,6 +1,7 @@
 package com.nyfaria.herespawn.mixin;
 
 import com.nyfaria.herespawn.platform.Services;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.DeathScreen;
 import net.minecraft.client.gui.screens.Screen;
