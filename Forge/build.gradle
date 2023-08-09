@@ -5,6 +5,7 @@ plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'org.spongepowered.mixin' version '0.7.+'
+    id "me.modmuss50.mod-publish-plugin" version "0.3.3"
 }
 
 archivesBaseName = "${mod_id}-forge-${minecraft_version}"
@@ -134,5 +135,17 @@ publishing {
         maven {
             url "file://" + System.getenv("local_maven")
         }
+    }
+}
+publishMods {
+    file = jar.archiveFile
+    changelog = "fixed dimension changes on respawn"
+    type = STABLE
+    modLoaders.add("forge")
+    displayName = "${mod_name} ${project.property('version')}"
+    curseforge {
+        projectId = "877466"
+        accessToken = curseforge_token
+        minecraftVersions.add(minecraft_version)
     }
 }
