@@ -1,5 +1,7 @@
 package com.nyfaria.herespawn.platform;
 
+import com.nyfaria.herespawn.api.HerespawnInfo;
+import com.nyfaria.herespawn.cap.HerespawnHolderAttacher;
 import com.nyfaria.herespawn.network.NetworkHandler;
 import com.nyfaria.herespawn.network.SetSpawnPacket;
 import com.nyfaria.herespawn.platform.services.IPlatformHelper;
@@ -30,5 +32,13 @@ public class ForgePlatformHelper implements IPlatformHelper {
     @Override
     public void sendPacket(Player player) {
         NetworkHandler.INSTANCE.sendToServer(new SetSpawnPacket());
+    }
+
+    @Override
+    public HerespawnInfo getHerespawnInfo(Player player) {
+        if(HerespawnHolderAttacher.getHolderUnwrap(player) != null)
+            return HerespawnHolderAttacher.getHolderUnwrap(player);
+        else
+            return null;
     }
 }

@@ -2,6 +2,8 @@ package com.nyfaria.herespawn.network;
 
 import com.google.common.collect.ImmutableList;
 import com.nyfaria.herespawn.Constants;
+import com.nyfaria.herespawn.cap.HerespawnHolderAttacher;
+import dev._100media.capabilitysyncer.network.SimpleEntityCapabilityStatusPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
@@ -22,8 +24,10 @@ public class NetworkHandler {
     public static void register() {
         List<BiConsumer<SimpleChannel, Integer>> packets = ImmutableList.<BiConsumer<SimpleChannel, Integer>>builder()
                 .add(SetSpawnPacket::register)
+                .add(SimpleEntityCapabilityStatusPacket::register)
                 .build();
 
+        SimpleEntityCapabilityStatusPacket.registerRetriever(HerespawnHolderAttacher.RESOURCE_LOCATION, HerespawnHolderAttacher::getHolderUnwrap);
 
         packets.forEach(consumer -> consumer.accept(INSTANCE, getNextId()));
     }

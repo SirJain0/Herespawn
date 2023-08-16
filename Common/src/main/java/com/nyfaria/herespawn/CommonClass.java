@@ -1,9 +1,12 @@
 package com.nyfaria.herespawn;
 
-import it.unimi.dsi.fastutil.ints.Int2BooleanMap;
-import it.unimi.dsi.fastutil.ints.Int2BooleanOpenHashMap;
+import com.nyfaria.herespawn.api.HerespawnInfo;
+import com.nyfaria.herespawn.config.CommonConfig;
+import com.nyfaria.herespawn.init.ItemInit;
+import com.nyfaria.herespawn.platform.Services;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -23,20 +26,30 @@ public class CommonClass {
     // write the majority of your code here and load it from your loader specific projects. This example has some
     // code that gets invoked by the entry point of the loader specific projects.
     public static void init() {
+        ItemInit.loadClass();
     }
 
-    public static void setRespawnInfo(Player player){
-        CommonClass.DEATH_POS.put(player.getId(), player.position());
-        CommonClass.DEATH_DIM.put(player.getId(), player.level().dimension());
-    }
-    public static void doRespawn(Player newPlayer){
-        if (CommonClass.DEATH_POS.containsKey(newPlayer.getId())) {
-            Vec3 deathPos = CommonClass.DEATH_POS.get(newPlayer.getId());
-            if(DEATH_DIM.containsKey(newPlayer.getId())) {
-                newPlayer.changeDimension(newPlayer.level().getServer().getLevel(DEATH_DIM.get(newPlayer.getId())));
+//    public static void setRespawnInfo(Player player) {
+//        CommonClass.DEATH_POS.put(player.getId(), player.position());
+//        CommonClass.DEATH_DIM.put(player.getId(), player.level().dimension());
+//    }
+
+    public static void doRespawn(Player newPlayer) {
+        HerespawnInfo herespawnInfo = Services.PLATFORM.getHerespawnInfo(newPlayer);
+        if (herespawnInfo == null) return;
+        if (herespawnInfo.shouldHerespawn()) {
+            BlockPos deathPos = newPlayer.getLastDeathLocation().get().pos();
+            newPlayer.changeDimension(newPlayer.level().getServer().getLevel(newPlayer.getLastDeathLocation().get().dimension()));
+
+            if (CommonConfig.INSTANCE.herespawnAreaRange.get() > 0) {
+                int range = CommonConfig.INSTANCE.herespawnAreaRange.get();
+                int randX = newPlayer.getRandom().nextInt(-range, range);
+                int randZ = newPlayer.getRandom().nextInt(-range, range);
+                newPlayer.randomTeleport(deathPos.getX() + randX, deathPos.getY(), deathPos.getZ() + randZ, false);
+            } else {
+                newPlayer.teleportTo(deathPos.getX(), deathPos.getY(), deathPos.getZ());
             }
-            newPlayer.teleportTo(deathPos.x, deathPos.y, deathPos.z);
-            CommonClass.DEATH_POS.remove(newPlayer.getId());
+            herespawnInfo.setShouldHerespawn(false);
         }
     }
 }

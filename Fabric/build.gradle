@@ -11,15 +11,24 @@ dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered() {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-1.19.3:2023.03.12@zip")
+        parchment("org.parchmentmc.data:parchment-1.20.1:2023.07.09@zip")
     }
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     implementation project(":Common")
+    modApi "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forge_config_api_port_version}"
+    include "fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${project.forge_config_api_port_version}"
+    modImplementation("curse.maven:trinkets-${project.trinkets_version}")
+    modImplementation include("dev.onyxstudios.cardinal-components-api:cardinal-components-base:${project.cca_version}")
+    modImplementation include("dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${project.cca_version}")
 }
 
 loom {
+
+    if (project.hasProperty('common_aws_enabled') && project.findProperty('fabric_aws_enabled').toBoolean()) {
+        accessWidenerPath = project(":Common").file("src/main/resources/mhef.accesswidener")
+    }
     runs {
         client {
             client()
@@ -99,17 +108,26 @@ publishing {
 }
 publishMods {
     file = remapJar.archiveFile
-    changelog = "fixed dimension changes on respawn"
+    changelog = project(":Common").file("changelog.md").text
     type = STABLE
     modLoaders.add("fabric")
-    displayName = "${mod_name} ${project.property('version')}"
-    curseforge {
-        projectId = "877466"
-        accessToken = curseforge_token
-        minecraftVersions.add(minecraft_version)
-
-        requires {
-            slug = "fabric-api"
+    displayName = "${mod_id}-${minecraft_version}-fabric-${project.property('version')}"
+    if (curseforge_publishing_enabled.toBoolean()) {
+        curseforge {
+            projectId = curseforge_project_id
+            accessToken = curseforge_token
+            minecraftVersions.add(minecraft_version)
+            requires {
+                slug = "curios"
+            }
         }
     }
+    if (modrinth_publishing_enabled.toBoolean()) {
+        modrinth {
+            accessToken = modrinth_token
+            projectId = modrinth_project_id
+            minecraftVersions.add(minecraft_version)
+        }
+    }
+
 }

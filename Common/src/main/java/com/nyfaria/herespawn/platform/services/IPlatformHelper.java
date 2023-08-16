@@ -1,5 +1,6 @@
 package com.nyfaria.herespawn.platform.services;
 
+import com.nyfaria.herespawn.api.HerespawnInfo;
 import net.minecraft.world.entity.player.Player;
 
 public interface IPlatformHelper {
@@ -37,4 +38,7 @@ public interface IPlatformHelper {
     }
 
     void sendPacket(Player player);
+
+    HerespawnInfo getHerespawnInfo(Player player);
+
 }

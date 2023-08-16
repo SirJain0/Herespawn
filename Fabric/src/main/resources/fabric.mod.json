@@ -13,6 +13,9 @@
   "entrypoints": {
     "main": [
       "com.nyfaria.herespawn.Herespawn"
+    ],
+    "cardinal-components": [
+      "com.nyfaria.herespawn.cap.HerespawnHolderAttacher"
     ]
   },
   "contact": {
@@ -32,6 +35,11 @@
   },
   "suggests": {
     "another-mod": "https://www.curseforge.com/minecraft/mc-mods/convenient-hitboxes"
+  },
+  "custom": {
+    "cardinal-components": [
+      "herespawn:herespawn"
+    ]
   }
 }
   
